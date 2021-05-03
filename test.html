@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reaction speed Test</title>
+    <style>
+        div {
+            text-align: center;
+        }
+
+        .panel {
+            width: 600px;
+            height: 500px;
+            border: 1px solid #999;
+            vertical-align: middle;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: inline-block;
+        }
+
+        #btnStart {
+            border: 0;
+            padding: 0;
+        }
+
+        #target {
+            position: absolute;
+            left: 150px;
+            top: 150px;
+        }
+    </style>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+        var count = 0;
+        var start = performance.now();
+        var end;
+        var result;
+
+        $(document).ready(function () {
+            var $target = $("#target");
+            
+            var panelW = parseInt($(".panel").css("width"));
+            var panelH = parseInt($(".panel").css("height"));
+
+            panelW = panelW - parseInt($target.css("width"));
+            panelH = panelH - parseInt($target.css("height"));
+
+            $("#btnStart").click(function () {
+                var top = parseInt(Math.random() * panelH);
+                var left = parseInt(Math.random() * panelW);
+                $target.css({ left: left, top: top });
+
+                count++;
+                if (count == 10) {
+                    end = performance.now();
+                    result = ((end - start)/1000)
+                    location.href = "result.html?"+result;
+                    
+                }
+            });
+        });
+    </script>
+    <div>
+        <h1 style="text-align:center">Reaction speed Test</h1>
+    </div>
+</head>
+
+<body>
+    <div class="panel">
+        <button id="btnStart" inclick="count()"><img src="target.png" style="width:30px;height:30px"
+                id="target"></button>
+    </div>
+</body>
+
+</html>
